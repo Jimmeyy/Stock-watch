@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap');
     
     * {
         margin: 0;
@@ -12,7 +14,8 @@ const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
         overflow-y: auto;
         font-size: 16px;
-        font-family: 'Open sans';
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
         letter-spacing: '-0.25px';
         color: ${({ theme }) => theme.colors.black};
         background-color: ${({ theme }) => theme.colors.white};
@@ -38,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
 
     input, select, button, textarea {
         font-size: 16px;
-        font-family: 'Open sans';
+        font-family: 'Montserrat', sans-serif;
         letter-spacing: '-0.25px';
         color: ${({ theme }) => theme.colors.black};
         outline: none;
