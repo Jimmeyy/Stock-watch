@@ -35,8 +35,8 @@ export const HeaderSearch = styled.div`
         background-color: #404040;
         background-image: url('/icons/white/search.svg');
         background-repeat: no-repeat;
-        background-size: 19px;
-        background-position: right 17px center;
+        background-size: 23px;
+        background-position: right 14px center;
         cursor: pointer;
     }
 
