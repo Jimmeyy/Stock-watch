@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderMenu } from './Header.style';
+import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderMenu, HeaderContainer } from './Header.style';
 
 function Header() {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -10,7 +10,7 @@ function Header() {
 
     return (
         <HeaderWrapper>
-            <div className="container">
+            <HeaderContainer>
                 <HeaderLogo>
                     <a href="/">Stock-Watch</a>
                 </HeaderLogo>
@@ -26,7 +26,7 @@ function Header() {
                         <span className="line-bottom"></span>
                     </div>
                 </HeaderMenu>
-            </div>
+            </HeaderContainer>
         </HeaderWrapper>
     );
 }

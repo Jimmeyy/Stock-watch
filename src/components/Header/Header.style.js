@@ -1,17 +1,15 @@
 import styled from 'styled-components';
+import { Container } from 'components/common';
 
 export const HeaderWrapper = styled.div`
     padding: 18px 0;
     background-color: #232323;
+`;
 
-    .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1260px;
-        position: relative;
-        margin: 0 auto;
-    }
+export const HeaderContainer = styled(Container)`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 
 export const HeaderLogo = styled.div`
