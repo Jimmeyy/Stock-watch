@@ -1,19 +1,33 @@
 import React from 'react';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import { Button } from 'components/common';
+import Dropdown from 'components/Dropdown';
+import { HomePageHeader } from './HomePage.style';
+import { Button, Container } from 'components/common';
+
+// temp
+const listElements = ['Option-1', 'Option-2', 'Option-3', 'Option-4', 'Damian'];
 
 function HomePage() {
     return (
         <div className="home-page">
             <Header />
             <main>
-                <h1>Home Page</h1>
-                <Button>Filters</Button>
-                <Button icon className="icon-arrow-left-white" />
-                <Button icon className="icon-arrow-right-white" />
+                <Container>
+                    <HomePageHeader>
+                        <div className="dropdown">
+                            <Dropdown listElements={listElements} />
+                            <Dropdown listElements={listElements} />
+                        </div>
+                        <div className="buttons">
+                            <Button>Filters</Button>
+                            <Button icon className="icon-arrow-left-white" />
+                            <Button icon className="icon-arrow-right-white" />
+                        </div>
+                    </HomePageHeader>
+                </Container>
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

@@ -15,6 +15,15 @@ const Button = styled.button`
     border: 2px solid ${({ theme }) => theme.colors.blue};
     vertical-align: middle;
     transition: all 0.3s ease;
+    user-select: none;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
 
     &:hover {
         background-color: transparent;

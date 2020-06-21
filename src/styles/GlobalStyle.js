@@ -52,6 +52,10 @@ const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.colors.black};
         text-decoration: none;
     }
+
+    main {
+        padding: 40px 0;
+    }
 `;
 
 export default GlobalStyle;
