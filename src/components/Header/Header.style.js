@@ -53,18 +53,33 @@ export const HeaderMenu = styled.div`
     .menu {
         position: relative;
         width: 22px;
-        height: 16px;
+        height: 17px;
+        cursor: pointer;
+
+        &.is-open {
+            .line-top {
+                opacity: 0;
+            }
+
+            .line-middle {
+                transform: rotate(45deg);
+            }
+
+            .line-bottom {
+                transform: translate(14%, 60%) rotate(-45deg);
+            }
+        }
     }
 
     span {
         position: absolute;
         left: 0;
-        display: inline-block;
+        display: block;
         width: 100%;
         height: 2px;
         background-color: ${({ theme }) => theme.colors.white};
         border-radius: 2px;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .line-top {
@@ -74,9 +89,11 @@ export const HeaderMenu = styled.div`
     .line-middle {
         top: 50%;
         transform: translateY(-50%);
+        transform-origin: 50% 50%;
     }
 
     .line-bottom {
         bottom: 0;
+        transform-origin: 0% 50%;
     }
 `;
