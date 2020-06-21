@@ -56,6 +56,10 @@ const GlobalStyle = createGlobalStyle`
     main {
         padding: 40px 0;
     }
+
+    .app {
+        min-height: 100vh;
+    }
 `;
 
 export default GlobalStyle;

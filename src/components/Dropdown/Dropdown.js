@@ -6,17 +6,33 @@ function Dropdown({ listElements }) {
     const [isOpen, setIsOpen] = useState(false);
     const [value, setValue] = useState('Select option');
 
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        isOpen && document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOpen]);
+
+    const handleClickOutside = event => {
+        if (!dropdownRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
     const handleListClick = () => {
         setIsOpen(prevState => !prevState);
     };
 
     const handleListElementClick = event => {
         setValue(event.target.getAttribute('data-value'));
+        setIsOpen(false);
     };
 
     return (
-        <DropdownWrapper onClick={handleListClick}>
-            <DropdownMain isOpen={isOpen}>
+        <DropdownWrapper ref={dropdownRef}>
+            <DropdownMain isOpen={isOpen} onClick={handleListClick}>
                 <span>{value}</span>
                 <img src="icons/white/arrow-down.svg" alt="arrow-down" />
             </DropdownMain>
