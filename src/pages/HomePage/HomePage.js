@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Dropdown from 'components/Dropdown';
@@ -9,8 +9,27 @@ import { Button, Container } from 'components/common';
 const listElements = ['Option-1', 'Option-2', 'Option-3', 'Option-4', 'Damian'];
 
 function HomePage() {
+    const [cryptoSymbols, setCryptoSymbols] = useState();
+    const endpoint = `https://finnhub.io/api/v1/crypto/symbol?exchange=binance&token=${process.env.REACT_APP_STOCK_MARKET_API}`;
+    const endpoint2 = symbol =>
+        `https://finnhub.io/api/v1/crypto/candle?symbol=${symbol}&resolution=D&from=1572651390&to=1575243390&token=${process.env.REACT_APP_STOCK_MARKET_API}`;
+
+    const fetchData = async () => {
+        const response = await fetch(endpoint);
+        let itemSymbols = await response.json();
+        itemSymbols = itemSymbols.slice(0, 30).map(item => item.symbol);
+        const response2 = await fetch(endpoint2(itemSymbols[0]));
+        const itemCandle = await response2.json();
+        setCryptoSymbols(itemCandle);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     return (
         <div className="home-page">
+            {console.log(cryptoSymbols)}
             <Header />
             <main>
                 <Container>
