@@ -11,29 +11,45 @@ import { dateToTimestamp } from 'utils';
 const listElements = ['Option-1', 'Option-2', 'Option-3', 'Option-4', 'Damian'];
 
 function HomePage() {
-    const [crypto, setCrypto] = useState();
+    const [cryptoSymbols, setCryptoSymbols] = useState([]);
+    const [tableData, setTableData] = useState([]);
 
-    const fetchData = async () => {
-        const response = await fetch(endpoints.cryptoSymbols);
-        const cryptoSymbols = await response.json();
+    useEffect(() => {
+        async function fetchHomePage() {
+            const tickers = await fetchSymbols(endpoints.cryptoSymbols);
+            const data = await fetchTableData(5, tickers);
+            setCryptoSymbols(tickers);
+            setTableData(data);
+        }
+        fetchHomePage();
+    }, []);
 
+    const fetchSymbols = async endpoint => {
+        const response = await fetch(endpoint);
+        const tickers = await response.json();
+        return tickers;
+    };
+
+    const fetchTableData = async (amount, tickers) => {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
         const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
-
-        const response2 = await fetch(endpoints.cryptoCandles(cryptoSymbols[0].symbol, resolutions.day, dateFrom, dateTo));
-        const cryptoCandles = await response2.json();
-        setCrypto(cryptoCandles);
-        console.log(cryptoCandles);
+        const urls = tickers.slice(0, amount).map(crypto => endpoints.cryptoCandles(crypto.symbol, resolutions.day, dateFrom, dateTo));
+        const response = await Promise.all(
+            urls.map(async url => {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            })
+        );
+        return response;
     };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <div className="home-page">
             <Header />
+            {console.log(cryptoSymbols)}
+            {console.log(tableData)}
             <main>
                 <Container>
                     <HomePageHeader>
