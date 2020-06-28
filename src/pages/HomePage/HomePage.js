@@ -8,21 +8,35 @@ import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 
 // temp
-const listElements = ['Option-1', 'Option-2', 'Option-3', 'Option-4', 'Damian'];
+const listElements = [
+    {
+        displayValue: 'Crypto',
+        value: 'crypto',
+    },
+    {
+        displayValue: 'Forex',
+        value: 'forex',
+    },
+    {
+        displayValue: 'Stocks',
+        value: 'stocks',
+    },
+];
 
 function HomePage() {
-    const [cryptoSymbols, setCryptoSymbols] = useState([]);
+    const [instrumentType, setInstrumentType] = useState('crypto');
+    const [instrumentSymbols, setInstrumentSymbols] = useState([]);
     const [displayData, setDisplayData] = useState([]);
 
     useEffect(() => {
         async function fetchHomePage() {
-            const tickers = await fetchSymbols(endpoints.cryptoSymbols);
-            const data = await fetchDisplayData(3, tickers);
-            setCryptoSymbols(tickers);
+            const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
+            const data = await fetchDisplayData(8, tickers);
+            setInstrumentSymbols(tickers);
             setDisplayData(data);
         }
         fetchHomePage();
-    }, []);
+    }, [instrumentType]);
 
     const fetchSymbols = async endpoint => {
         const response = await fetch(endpoint);
@@ -53,6 +67,10 @@ function HomePage() {
         return displayData;
     };
 
+    const changeInstrumentType = symbol => {
+        setInstrumentType(symbol);
+    };
+
     return (
         <div className="home-page">
             <Header />
@@ -61,8 +79,7 @@ function HomePage() {
                 <Container>
                     <HomePageHeader>
                         <div className="dropdown">
-                            <Dropdown listElements={listElements} />
-                            <Dropdown listElements={listElements} />
+                            <Dropdown listElements={listElements} onChange={changeInstrumentType} />
                         </div>
                         <div className="buttons">
                             <Button>Filters</Button>
