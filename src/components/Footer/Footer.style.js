@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const FooterWrapper = styled.footer`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: 20px 0;
     background-color: #232323;
     color: ${({ theme }) => theme.colors.white};
@@ -41,7 +45,7 @@ export const FooterList = styled.div`
 `;
 
 export const FooterCol = styled.div`
-    flex: ${({ flex }) => (flex ? flex : '0.2')};
+    flex: 0.25;
 `;
 
 export const FooterCopyrights = styled.div`
@@ -61,8 +65,8 @@ export const FooterSocials = styled.ul`
     margin: 0 -8px 26px -8px;
 
     li {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         padding: 0;
         margin: 0 8px;
         background: no-repeat center center / 100%;

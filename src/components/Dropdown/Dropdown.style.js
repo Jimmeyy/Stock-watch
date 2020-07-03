@@ -26,11 +26,16 @@ export const DropdownMain = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
+    height: 38px;
     padding: 6px 16px;
     border: 2px solid #404040;
     border-radius: 5px;
     background-color: #404040;
+    transition: all 0.3s ease;
+
+    &:hover {
+        opacity: 0.75;
+    }
 
     span {
         transition: all 0.3s ease;
@@ -46,7 +51,7 @@ export const DropdownMain = styled.div`
 
 export const DropdownList = styled.ul`
     position: absolute;
-    top: 34px;
+    top: 40px;
     left: 0;
     width: 100%;
     border: 2px solid #404040;

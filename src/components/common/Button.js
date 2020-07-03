@@ -6,7 +6,7 @@ const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.blue};
     border: 0;
     border-radius: 5px;
-    height: 40px;
+    height: 38px;
     color: ${({ theme }) => theme.colors.white};
     padding: 6px 18px;
     letter-spacing: 0.2px;
@@ -26,8 +26,7 @@ const Button = styled.button`
     }
 
     &:hover {
-        background-color: transparent;
-        color: ${({ theme }) => theme.colors.blue};
+        opacity: 0.75;
     }
 
     ${({ icon }) =>
@@ -37,11 +36,6 @@ const Button = styled.button`
             background-repeat: no-repeat;
             background-size: 18px;
             background-position: center center;
-
-            &:hover {
-                background-color: ${({ theme }) => theme.colors.blue};
-                opacity: 0.75;
-            }
 
             &.icon-arrow-left-white {
                 background-image: url('/icons/white/arrow-left.svg');

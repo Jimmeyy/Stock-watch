@@ -10,6 +10,7 @@ export const HeaderContainer = styled(Container)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1920px;
 `;
 
 export const HeaderLogo = styled.div`
@@ -24,7 +25,7 @@ export const HeaderSearch = styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 45%;
+    width: 600px;
 
     .search-main {
         border-radius: 5px;
@@ -64,7 +65,7 @@ export const HeaderMenu = styled.div`
             }
 
             .line-bottom {
-                transform: translate(14%, 60%) rotate(-45deg);
+                transform: translate(13%, 75%) rotate(-45deg);
             }
         }
     }

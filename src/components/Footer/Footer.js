@@ -37,7 +37,7 @@ function Footer() {
                             <li>Litecoin</li>
                         </ul>
                     </FooterCol>
-                    <FooterCol flex={'0.4'}>
+                    <FooterCol>
                         <h3 className="footer-heading">Follow us</h3>
                         <FooterSocials>
                             <li className="facebook"></li>

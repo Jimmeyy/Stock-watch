@@ -60,6 +60,12 @@ const GlobalStyle = createGlobalStyle`
     .app {
         min-height: 100vh;
     }
+
+    .page {
+        position: relative;
+        min-height: 100vh;
+        padding-bottom: 295px;
+    }
 `;
 
 export default GlobalStyle;

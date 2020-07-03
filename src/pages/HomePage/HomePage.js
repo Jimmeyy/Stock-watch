@@ -33,7 +33,7 @@ function HomePage() {
         setIsLoading(true);
         async function fetchHomePage() {
             const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
-            const data = await fetchDisplayData(5, tickers);
+            const data = await fetchDisplayData(8, tickers);
             setInstrumentSymbols(tickers);
             setDisplayData(data);
             setIsLoading(false);
@@ -75,7 +75,7 @@ function HomePage() {
     };
 
     return (
-        <div className="home-page">
+        <div className="home-page page">
             <Header />
             <main>
                 <Container>

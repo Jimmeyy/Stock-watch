@@ -4,7 +4,7 @@ import { DropdownWrapper, DropdownMain, DropdownList } from './Dropdown.style';
 
 function Dropdown({ listElements, onChange }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState('Select option');
+    const [value, setValue] = useState(listElements[0].displayValue);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
