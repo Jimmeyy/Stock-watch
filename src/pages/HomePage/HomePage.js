@@ -3,7 +3,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Dropdown from 'components/Dropdown';
 import { HomePageHeader, MarketList, MarketListHeader, MarketListMain } from './HomePage.style';
-import { Button, Container } from 'components/common';
+import { Button, Container, Loader } from 'components/common';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 
@@ -31,7 +31,7 @@ function HomePage() {
     useEffect(() => {
         async function fetchHomePage() {
             const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
-            const data = await fetchDisplayData(5, tickers);
+            const data = await fetchDisplayData(1, tickers);
             setInstrumentSymbols(tickers);
             setDisplayData(data);
         }
@@ -101,7 +101,6 @@ function HomePage() {
                         </MarketListHeader>
                         <MarketListMain>
                             {displayData.map((element, index) => {
-                                instrumentType === 'stocks' && console.log(element);
                                 const { changePercent, priceIsBigger } = calculatePriceDayChange(element.c);
                                 return (
                                     <ul key={index}>
