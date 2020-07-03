@@ -58,6 +58,11 @@ const Button = styled.button`
             &.icon-arrow-down-white {
                 background-image: url('/icons/white/arrow-left.svg');
             }
+
+            &.icon-play-white {
+                background-image: url('icons/white/play.svg');
+                background-size: 16px;
+            }
         `}
 `;
 

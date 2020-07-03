@@ -126,7 +126,7 @@ function HomePage() {
                     )}
                 </Container>
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }
