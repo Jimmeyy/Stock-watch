@@ -31,7 +31,7 @@ function HomePage() {
     useEffect(() => {
         async function fetchHomePage() {
             const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
-            const data = await fetchDisplayData(8, tickers);
+            const data = await fetchDisplayData(5, tickers);
             setInstrumentSymbols(tickers);
             setDisplayData(data);
         }
@@ -48,9 +48,9 @@ function HomePage() {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
         const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 2)); // yesterday
-        const chosenTickers = tickers.slice(0, amount).map(crypto => ({
-            ticker: crypto.displaySymbol,
-            url: endpoints.cryptoCandles(crypto.symbol, resolutions.day, dateFrom, dateTo),
+        const chosenTickers = tickers.slice(0, amount).map(instrument => ({
+            ticker: instrument.displaySymbol,
+            url: endpoints[`${instrumentType}Candles`](instrument.symbol, resolutions.day, dateFrom, dateTo),
         }));
         const response = await Promise.all(
             chosenTickers.map(async ({ url }) => {
@@ -74,7 +74,6 @@ function HomePage() {
     return (
         <div className="home-page">
             <Header />
-            {console.log(displayData)}
             <main>
                 <Container>
                     <HomePageHeader>
@@ -102,6 +101,7 @@ function HomePage() {
                         </MarketListHeader>
                         <MarketListMain>
                             {displayData.map((element, index) => {
+                                instrumentType === 'stocks' && console.log(element);
                                 const { changePercent, priceIsBigger } = calculatePriceDayChange(element.c);
                                 return (
                                     <ul key={index}>
