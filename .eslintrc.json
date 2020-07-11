@@ -5,12 +5,14 @@
         "prettier/prettier": [
             "error",
             {
-                "endOfLine": "crlf",
-                "singleQuote": true,
-                "trailingComma": "es5",
-                "tabWidth": 4,
-                "semi": true
-                // "printWidth": 100,
+                // "endOfLine": "crlf",
+                // "singleQuote": true,
+                // "trailingComma": "es5",
+                // "tabWidth": 4,
+                // "semi": true
+                // // "printWidth": 100,
+            }, {
+                "usePrettierrc": true
             }
         ]
     },

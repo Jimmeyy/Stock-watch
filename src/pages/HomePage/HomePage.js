@@ -3,9 +3,10 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import Dropdown from 'components/Dropdown';
 import { HomePageHeader, MarketList, MarketListHeader, MarketListMain } from './HomePage.style';
-import { Button, Container, Loader } from 'components/common';
+import { Button, Container, Loader, PaginationWrapper } from 'components/common';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
+import ReactPaginate from 'react-paginate';
 
 // temp
 const listElements = [
@@ -92,39 +93,44 @@ function HomePage() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <MarketList>
-                            <MarketListHeader>
-                                <ul>
-                                    <li>Lp</li>
-                                    <li>Name</li>
-                                    <li>Close</li>
-                                    <li>Open</li>
-                                    <li>High</li>
-                                    <li>Low</li>
-                                    <li>Volume</li>
-                                    <li>Day change (%)</li>
-                                </ul>
-                            </MarketListHeader>
-                            <MarketListMain>
-                                {displayData.map((element, index) => {
-                                    if (element.s === 'ok') {
-                                        const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
-                                        return (
-                                            <ul key={index}>
-                                                <li>{index + 1}</li>
-                                                <li>{element.ticker}</li>
-                                                <li>{element.c[0]}</li>
-                                                <li>{element.o[0]}</li>
-                                                <li>{element.h[0]}</li>
-                                                <li>{element.l[0]}</li>
-                                                <li>{element.v[0]}</li>
-                                                <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
-                                            </ul>
-                                        );
-                                    }
-                                })}
-                            </MarketListMain>
-                        </MarketList>
+                        <React.Fragment>
+                            <MarketList>
+                                <MarketListHeader>
+                                    <ul>
+                                        <li>Lp</li>
+                                        <li>Name</li>
+                                        <li>Close</li>
+                                        <li>Open</li>
+                                        <li>High</li>
+                                        <li>Low</li>
+                                        <li>Volume</li>
+                                        <li>Day change (%)</li>
+                                    </ul>
+                                </MarketListHeader>
+                                <MarketListMain>
+                                    {displayData.map((element, index) => {
+                                        if (element.s === 'ok') {
+                                            const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
+                                            return (
+                                                <ul key={index}>
+                                                    <li>{index + 1}</li>
+                                                    <li>{element.ticker}</li>
+                                                    <li>{element.c[0]}</li>
+                                                    <li>{element.o[0]}</li>
+                                                    <li>{element.h[0]}</li>
+                                                    <li>{element.l[0]}</li>
+                                                    <li>{element.v[0]}</li>
+                                                    <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
+                                                </ul>
+                                            );
+                                        }
+                                    })}
+                                </MarketListMain>
+                            </MarketList>
+                            <PaginationWrapper>
+                                <ReactPaginate pageCount={10} pageRangeDisplayed={5} marginPagesDisplayed={1} />
+                            </PaginationWrapper>
+                        </React.Fragment>
                     )}
                 </Container>
             </main>
