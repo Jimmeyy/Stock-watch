@@ -1,18 +1,18 @@
-const _ = require('lodash');
+const lodash = require('lodash');
 
 export const dateToTimestamp = date => {
     return parseInt(date / 1000);
 };
 
-export const calculatePriceDayChange = closePrices => {
-    const currentClose = closePrices[1];
-    const yesterdayClose = closePrices[0];
-    const change = currentClose - yesterdayClose;
-    const changePercent = yesterdayClose / change;
-    const priceIsBigger = currentClose > yesterdayClose ? true : false;
+export const calculatePriceDayChange = ({ c, o }) => {
+    const closePrice = c[0];
+    const openPrice = o[0];
+    const change = closePrice - openPrice;
+    const changePercent = (closePrice / openPrice) * 100 - 100;
+    const priceIsBigger = closePrice > openPrice ? true : false;
     return {
         change,
-        changePercent: _.round(changePercent, 2),
+        changePercent: lodash.round(changePercent, 2),
         priceIsBigger,
     };
 };

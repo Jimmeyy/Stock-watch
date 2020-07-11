@@ -50,7 +50,7 @@ function HomePage() {
     const fetchDisplayData = async (amount, tickers) => {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
-        const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 2)); // yesterday
+        const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
         const chosenTickers = tickers.slice(0, amount).map(instrument => ({
             ticker: instrument.displaySymbol,
             url: endpoints[`${instrumentType}Candles`](instrument.symbol, resolutions.day, dateFrom, dateTo),
@@ -97,7 +97,7 @@ function HomePage() {
                                 <ul>
                                     <li>Lp</li>
                                     <li>Name</li>
-                                    <li>Last Value</li>
+                                    <li>Close</li>
                                     <li>Open</li>
                                     <li>High</li>
                                     <li>Low</li>
@@ -108,16 +108,16 @@ function HomePage() {
                             <MarketListMain>
                                 {displayData.map((element, index) => {
                                     if (element.s === 'ok') {
-                                        const { changePercent, priceIsBigger } = calculatePriceDayChange(element.c);
+                                        const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
                                         return (
                                             <ul key={index}>
                                                 <li>{index + 1}</li>
                                                 <li>{element.ticker}</li>
-                                                <li>{element.c[1]}</li>
-                                                <li>{element.o[1]}</li>
-                                                <li>{element.h[1]}</li>
-                                                <li>{element.l[1]}</li>
-                                                <li>{element.v[1]}</li>
+                                                <li>{element.c[0]}</li>
+                                                <li>{element.o[0]}</li>
+                                                <li>{element.h[0]}</li>
+                                                <li>{element.l[0]}</li>
+                                                <li>{element.v[0]}</li>
                                                 <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
                                             </ul>
                                         );
