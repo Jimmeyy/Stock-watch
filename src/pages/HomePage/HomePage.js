@@ -10,10 +10,6 @@ import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 // temp
 const listElements = [
     {
-        displayValue: 'Crypto',
-        value: 'crypto',
-    },
-    {
         displayValue: 'Forex',
         value: 'forex',
     },
@@ -21,10 +17,14 @@ const listElements = [
         displayValue: 'Stocks',
         value: 'stocks',
     },
+    {
+        displayValue: 'Crypto',
+        value: 'crypto',
+    },
 ];
 
 function HomePage() {
-    const [instrumentType, setInstrumentType] = useState('crypto');
+    const [instrumentType, setInstrumentType] = useState('forex');
     const [instrumentSymbols, setInstrumentSymbols] = useState([]);
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ function HomePage() {
         setIsLoading(true);
         async function fetchHomePage() {
             const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
-            const data = await fetchDisplayData(8, tickers);
+            const data = await fetchDisplayData(10, tickers);
             setInstrumentSymbols(tickers);
             setDisplayData(data);
             setIsLoading(false);
@@ -107,19 +107,21 @@ function HomePage() {
                             </MarketListHeader>
                             <MarketListMain>
                                 {displayData.map((element, index) => {
-                                    const { changePercent, priceIsBigger } = calculatePriceDayChange(element.c);
-                                    return (
-                                        <ul key={index}>
-                                            <li>{index + 1}</li>
-                                            <li>{element.ticker}</li>
-                                            <li>{element.c[1]}</li>
-                                            <li>{element.o[1]}</li>
-                                            <li>{element.h[1]}</li>
-                                            <li>{element.l[1]}</li>
-                                            <li>{element.v[1]}</li>
-                                            <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
-                                        </ul>
-                                    );
+                                    if (element.s === 'ok') {
+                                        const { changePercent, priceIsBigger } = calculatePriceDayChange(element.c);
+                                        return (
+                                            <ul key={index}>
+                                                <li>{index + 1}</li>
+                                                <li>{element.ticker}</li>
+                                                <li>{element.c[1]}</li>
+                                                <li>{element.o[1]}</li>
+                                                <li>{element.h[1]}</li>
+                                                <li>{element.l[1]}</li>
+                                                <li>{element.v[1]}</li>
+                                                <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
+                                            </ul>
+                                        );
+                                    }
                                 })}
                             </MarketListMain>
                         </MarketList>
