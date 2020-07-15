@@ -29,18 +29,25 @@ function HomePage() {
     const [instrumentSymbols, setInstrumentSymbols] = useState([]);
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [pagination, setPagination] = useState({
+        offset: 0,
+        perPage: 10,
+        currentPage: 1,
+    });
 
     useEffect(() => {
         setIsLoading(true);
+        const { perPage, currentPage } = pagination;
+        const fetchAmount = perPage * currentPage;
         async function fetchHomePage() {
             const tickers = await fetchSymbols(endpoints[`${instrumentType}Symbols`]);
-            const data = await fetchDisplayData(10, tickers);
+            const data = await fetchDisplayData(fetchAmount, tickers);
             setInstrumentSymbols(tickers);
             setDisplayData(data);
             setIsLoading(false);
         }
         fetchHomePage();
-    }, [instrumentType]);
+    }, [instrumentType, pagination.currentPage]);
 
     const fetchSymbols = async endpoint => {
         const response = await fetch(endpoint);
@@ -52,7 +59,8 @@ function HomePage() {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
         const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
-        const chosenTickers = tickers.slice(0, amount).map(instrument => ({
+        const { perPage } = pagination;
+        const chosenTickers = tickers.slice(amount - perPage, amount).map(instrument => ({
             ticker: instrument.displaySymbol,
             url: endpoints[`${instrumentType}Candles`](instrument.symbol, resolutions.day, dateFrom, dateTo),
         }));
@@ -73,6 +81,14 @@ function HomePage() {
 
     const changeInstrumentType = symbol => {
         setInstrumentType(symbol);
+    };
+
+    const handlePagination = currentPage => {
+        const activePage = currentPage.selected + 1;
+        setPagination(prevState => ({
+            ...prevState,
+            currentPage: activePage,
+        }));
     };
 
     return (
@@ -128,7 +144,13 @@ function HomePage() {
                                 </MarketListMain>
                             </MarketList>
                             <PaginationWrapper>
-                                <ReactPaginate pageCount={8} pageRangeDisplayed={5} marginPagesDisplayed={1} />
+                                <ReactPaginate
+                                    pageCount={instrumentSymbols.length}
+                                    pageRangeDisplayed={3}
+                                    marginPagesDisplayed={1}
+                                    onPageChange={handlePagination}
+                                    initialPage={pagination.currentPage - 1}
+                                />
                             </PaginationWrapper>
                         </React.Fragment>
                     )}
