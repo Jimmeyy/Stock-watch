@@ -128,7 +128,7 @@ function HomePage() {
                                 </MarketListMain>
                             </MarketList>
                             <PaginationWrapper>
-                                <ReactPaginate pageCount={10} pageRangeDisplayed={5} marginPagesDisplayed={1} />
+                                <ReactPaginate pageCount={8} pageRangeDisplayed={5} marginPagesDisplayed={1} />
                             </PaginationWrapper>
                         </React.Fragment>
                     )}
