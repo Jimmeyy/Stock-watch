@@ -81,6 +81,10 @@ function HomePage() {
 
     const changeInstrumentType = symbol => {
         setInstrumentType(symbol);
+        setPagination(prevState => ({
+            ...prevState,
+            currentPage: 1,
+        }));
     };
 
     const handlePagination = currentPage => {
