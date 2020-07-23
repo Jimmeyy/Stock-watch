@@ -8,7 +8,9 @@ import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import ReactPaginate from 'react-paginate';
 
-// temp
+const lodash = require('lodash');
+
+// List dropdown elements
 const listElements = [
     {
         displayValue: 'Forex',
@@ -24,6 +26,42 @@ const listElements = [
     },
 ];
 
+// List column fields
+const tableFields = [
+    {
+        displayValue: 'Lp',
+        value: 'lp',
+    },
+    {
+        displayValue: 'Name',
+        value: 'ticker',
+    },
+    {
+        displayValue: 'Close',
+        value: 'c',
+    },
+    {
+        displayValue: 'Open',
+        value: 'o',
+    },
+    {
+        displayValue: 'High',
+        value: 'h',
+    },
+    {
+        displayValue: 'Low',
+        value: 'l',
+    },
+    {
+        displayValue: 'Volume',
+        value: 'v',
+    },
+    {
+        displayValue: 'Day change  (%)',
+        value: 'changePercent',
+    },
+];
+
 function HomePage() {
     const [instrumentType, setInstrumentType] = useState('forex');
     const [instrumentSymbols, setInstrumentSymbols] = useState([]);
@@ -31,8 +69,12 @@ function HomePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [pagination, setPagination] = useState({
         offset: 0,
-        perPage: 10,
+        perPage: 5,
         currentPage: 1,
+    });
+    const [sortBy, setSortBy] = useState({
+        field: '',
+        direction: false,
     });
 
     useEffect(() => {
@@ -49,6 +91,15 @@ function HomePage() {
         fetchHomePage();
     }, [instrumentType, pagination.currentPage]);
 
+    useEffect(() => {
+        if (sortBy.field) {
+            const direction = sortBy.direction ? 'asc' : 'desc';
+            const sortedDisplayData = lodash.orderBy(displayData, [sortBy.field], [direction]);
+            setDisplayData(sortedDisplayData);
+        }
+        console.log(sortBy);
+    }, [sortBy]);
+
     const fetchSymbols = async endpoint => {
         const response = await fetch(endpoint);
         const tickers = await response.json();
@@ -58,7 +109,7 @@ function HomePage() {
     const fetchDisplayData = async (amount, tickers) => {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
-        const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
+        const dateFrom = dateToTimestamp(date.setDate(date.getDate())); // yesterday
         const { perPage } = pagination;
         const chosenTickers = tickers.slice(amount - perPage, amount).map(instrument => ({
             ticker: instrument.displaySymbol,
@@ -71,10 +122,21 @@ function HomePage() {
                 return data;
             })
         );
-        const displayData = response.map((element, index) => ({
-            ticker: chosenTickers[index].ticker,
-            ...element,
-        }));
+
+        const displayData = response.map((element, index) => {
+            const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
+            return {
+                ...element,
+                ticker: chosenTickers[index].ticker,
+                changePercent,
+                priceIsBigger,
+                o: element.o[0],
+                h: element.h[0],
+                l: element.l[0],
+                c: element.c[0],
+                v: element.v[0],
+            };
+        });
 
         return displayData;
     };
@@ -93,6 +155,15 @@ function HomePage() {
             ...prevState,
             currentPage: activePage,
         }));
+    };
+
+    const handleSortBy = value => {
+        setSortBy(prevState => {
+            return {
+                field: value,
+                direction: prevState.field === value ? !prevState.direction : false,
+            };
+        });
     };
 
     return (
@@ -117,30 +188,30 @@ function HomePage() {
                             <MarketList>
                                 <MarketListHeader>
                                     <ul>
-                                        <li>Lp</li>
-                                        <li>Name</li>
-                                        <li>Close</li>
-                                        <li>Open</li>
-                                        <li>High</li>
-                                        <li>Low</li>
-                                        <li>Volume</li>
-                                        <li>Day change (%)</li>
+                                        {tableFields.map(({ displayValue, value }) => (
+                                            <li onClick={() => handleSortBy(value)} key={value}>
+                                                {value === sortBy.field ? (
+                                                    <span className={sortBy.direction ? 'sort-asc' : 'sort-desc'}>{displayValue}</span>
+                                                ) : (
+                                                    <span>{displayValue}</span>
+                                                )}
+                                            </li>
+                                        ))}
                                     </ul>
                                 </MarketListHeader>
                                 <MarketListMain>
                                     {displayData.map((element, index) => {
                                         if (element.s === 'ok') {
-                                            const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
                                             return (
                                                 <ul key={index}>
                                                     <li>{index + 1}</li>
                                                     <li>{element.ticker}</li>
-                                                    <li>{element.c[0]}</li>
-                                                    <li>{element.o[0]}</li>
-                                                    <li>{element.h[0]}</li>
-                                                    <li>{element.l[0]}</li>
-                                                    <li>{element.v[0]}</li>
-                                                    <li className={priceIsBigger ? 'price-up' : 'price-down'}>{changePercent} %</li>
+                                                    <li>{element.c}</li>
+                                                    <li>{element.o}</li>
+                                                    <li>{element.h}</li>
+                                                    <li>{element.l}</li>
+                                                    <li>{element.v}</li>
+                                                    <li className={element.priceIsBigger ? 'price-up' : 'price-down'}>{element.changePercent} %</li>
                                                 </ul>
                                             );
                                         }
