@@ -68,7 +68,6 @@ function HomePage() {
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [pagination, setPagination] = useState({
-        offset: 0,
         perPage: 5,
         currentPage: 1,
     });
@@ -97,7 +96,6 @@ function HomePage() {
             const sortedDisplayData = lodash.orderBy(displayData, [sortBy.field], [direction]);
             setDisplayData(sortedDisplayData);
         }
-        console.log(sortBy);
     }, [sortBy]);
 
     const fetchSymbols = async endpoint => {
@@ -109,7 +107,7 @@ function HomePage() {
     const fetchDisplayData = async (amount, tickers) => {
         const date = new Date();
         const dateTo = dateToTimestamp(date.getTime()); // today
-        const dateFrom = dateToTimestamp(date.setDate(date.getDate())); // yesterday
+        const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
         const { perPage } = pagination;
         const chosenTickers = tickers.slice(amount - perPage, amount).map(instrument => ({
             ticker: instrument.displaySymbol,
@@ -125,19 +123,22 @@ function HomePage() {
 
         const displayData = response.map((element, index) => {
             const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
-            return {
-                ...element,
-                ticker: chosenTickers[index].ticker,
-                changePercent,
-                priceIsBigger,
-                o: element.o[0],
-                h: element.h[0],
-                l: element.l[0],
-                c: element.c[0],
-                v: element.v[0],
-            };
+            // const changePercent = 0;
+            // const priceIsBigger = 0;
+            if (element && element.s === 'ok') {
+                return {
+                    ...element,
+                    ticker: chosenTickers[index].ticker,
+                    changePercent,
+                    priceIsBigger,
+                    o: element.o[element.o.length - 1],
+                    h: element.h[element.o.length - 1],
+                    l: element.l[element.o.length - 1],
+                    c: element.c[element.o.length - 1],
+                    v: element.v[element.o.length - 1],
+                };
+            }
         });
-
         return displayData;
     };
 
@@ -155,6 +156,24 @@ function HomePage() {
             ...prevState,
             currentPage: activePage,
         }));
+    };
+
+    const paginationNext = () => {
+        if (pagination.currentPage < Math.ceil(instrumentSymbols.length / pagination.perPage)) {
+            setPagination(prevState => ({
+                ...prevState,
+                currentPage: prevState.currentPage + 1,
+            }));
+        }
+    };
+
+    const paginationPrev = () => {
+        if (pagination.currentPage > 1) {
+            setPagination(prevState => ({
+                ...prevState,
+                currentPage: prevState.currentPage - 1,
+            }));
+        }
     };
 
     const handleSortBy = value => {
@@ -177,8 +196,8 @@ function HomePage() {
                         </div>
                         <div className="buttons">
                             <Button>Filters</Button>
-                            <Button icon className="icon-arrow-left-white" />
-                            <Button icon className="icon-arrow-right-white" />
+                            <Button onClick={paginationPrev} icon className="icon-arrow-left-white" />
+                            <Button onClick={paginationNext} icon className="icon-arrow-right-white" />
                         </div>
                     </HomePageHeader>
                     {isLoading ? (
@@ -201,7 +220,7 @@ function HomePage() {
                                 </MarketListHeader>
                                 <MarketListMain>
                                     {displayData.map((element, index) => {
-                                        if (element.s === 'ok') {
+                                        if (element && element.s === 'ok') {
                                             return (
                                                 <ul key={index}>
                                                     <li>{index + 1}</li>
@@ -220,7 +239,7 @@ function HomePage() {
                             </MarketList>
                             <PaginationWrapper>
                                 <ReactPaginate
-                                    pageCount={instrumentSymbols.length}
+                                    pageCount={Math.ceil(instrumentSymbols.length / pagination.perPage)}
                                     pageRangeDisplayed={3}
                                     marginPagesDisplayed={1}
                                     onPageChange={handlePagination}

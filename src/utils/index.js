@@ -5,8 +5,8 @@ export const dateToTimestamp = date => {
 };
 
 export const calculatePriceDayChange = ({ c, o }) => {
-    const closePrice = c;
-    const openPrice = o;
+    const closePrice = c ? c[c.length - 1] : '';
+    const openPrice = o ? o[o.length - 1] : '';
     const change = closePrice - openPrice;
     const changePercent = (closePrice / openPrice) * 100 - 100;
     const priceIsBigger = closePrice > openPrice ? true : false;
