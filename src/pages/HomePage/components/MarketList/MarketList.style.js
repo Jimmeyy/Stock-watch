@@ -65,6 +65,13 @@ export const MarketListMain = styled.div`
     ul {
         padding: 12px 10px;
         border-bottom: 1px solid #dedede;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ecf2ff;
+        }
     }
 
     li {

@@ -9,6 +9,7 @@ import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import lodash from 'lodash';
 import { fetchMultiple } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
+import { Link } from 'react-router-dom';
 
 const MarketList = ({ marketListDropdownElements, marketListFields }) => {
     const [instrumentType, setInstrumentType] = useState('forex');
@@ -154,16 +155,18 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
                             {displayData.map((element, index) => {
                                 if (element && element.s === 'ok') {
                                     return (
-                                        <ul key={index}>
-                                            <li>{index + 1}</li>
-                                            <li>{element.ticker}</li>
-                                            <li>{element.c}</li>
-                                            <li>{element.o}</li>
-                                            <li>{element.h}</li>
-                                            <li>{element.l}</li>
-                                            <li>{element.v}</li>
-                                            <li className={element.priceIsBigger ? 'price-up' : 'price-down'}>{element.changePercent} %</li>
-                                        </ul>
+                                        <Link to={`/instrument/${element.ticker}`}>
+                                            <ul key={index}>
+                                                <li>{index + 1}</li>
+                                                <li>{element.ticker}</li>
+                                                <li>{element.c}</li>
+                                                <li>{element.o}</li>
+                                                <li>{element.h}</li>
+                                                <li>{element.l}</li>
+                                                <li>{element.v}</li>
+                                                <li className={element.priceIsBigger ? 'price-up' : 'price-down'}>{element.changePercent} %</li>
+                                            </ul>
+                                        </Link>
                                     );
                                 }
                             })}
