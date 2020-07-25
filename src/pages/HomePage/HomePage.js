@@ -5,6 +5,7 @@ import { Container, Loader } from 'components/common';
 import MarketListNew from './components/MarketList';
 import { marketListDropdownElements, marketListFields } from 'data/content/HomePage';
 import endpoints from 'data/endpoints';
+import { fetchSingle } from 'data/fetch';
 
 function HomePage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +18,10 @@ function HomePage() {
     useEffect(() => {
         setIsLoading(true);
         async function fetchData() {
-            const forex = await fetchSymbols(endpoints.forexSymbols);
-            const stocks = await fetchSymbols(endpoints.stocksSymbols);
-            const crypto = await fetchSymbols(endpoints.cryptoSymbols);
+            const forex = await fetchSingle(endpoints.forexSymbols);
+            const stocks = await fetchSingle(endpoints.stocksSymbols);
+            const crypto = await fetchSingle(endpoints.cryptoSymbols);
+
             setInstrumentSymbols({
                 forex,
                 stocks,
@@ -29,12 +31,6 @@ function HomePage() {
         }
         fetchData();
     }, []);
-
-    const fetchSymbols = async endpoint => {
-        const response = await fetch(endpoint);
-        const tickers = await response.json();
-        return tickers;
-    };
 
     return (
         <div className="home-page page">

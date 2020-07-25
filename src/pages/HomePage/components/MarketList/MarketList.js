@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import lodash from 'lodash';
+import { fetchMultiple } from 'data/fetch';
 
 const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListFields }) => {
     const [instrumentType, setInstrumentType] = useState('forex');
@@ -50,13 +51,9 @@ const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListF
             ticker: instrument.displaySymbol,
             url: endpoints[`${instrumentType}Candles`](instrument.symbol, resolutions.day, dateFrom, dateTo),
         }));
-        const response = await Promise.all(
-            chosenTickers.map(async ({ url }) => {
-                const response = await fetch(url);
-                const data = await response.json();
-                return data;
-            })
-        );
+
+        const urls = chosenTickers.map(({ url }) => url);
+        const response = await fetchMultiple(urls);
 
         const displayData = response.map((element, index) => {
             const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
@@ -80,10 +77,10 @@ const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListF
 
     const changeInstrumentType = symbol => {
         setInstrumentType(symbol);
-        setPagination(prevState => ({
-            ...prevState,
+        setPagination({
+            ...pagination,
             currentPage: 1,
-        }));
+        });
     };
 
     const handleSortBy = value => {
@@ -97,10 +94,10 @@ const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListF
 
     const handlePagination = currentPage => {
         const activePage = currentPage.selected + 1;
-        setPagination(prevState => ({
-            ...prevState,
+        setPagination({
+            ...pagination,
             currentPage: activePage,
-        }));
+        });
     };
 
     const paginationNext = () => {
