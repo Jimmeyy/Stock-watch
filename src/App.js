@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from 'pages/HomePage';
+import Instrument from 'pages/Instrument';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 import SymbolsContext from 'data/context/SymbolsContext';
 import endpoints from 'data/endpoints';
 import { fetchSingle } from 'data/fetch';
 import { Loader } from 'components/common';
-import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
     const [isLoading, setIsLoading] = useState(false);
@@ -39,28 +42,27 @@ function App() {
                 ) : (
                     <SymbolsContext.Provider value={instrumentSymbols}>
                         <div className="app">
-                            <Switch>
-                                <Route exact path="/">
-                                    <HomePage />
-                                </Route>
-                                <Route path="/instrument/:ticker/:ticker2">
-                                    <Instrument />
-                                </Route>
-                                <Route path="">
-                                    <h1>404</h1>
-                                </Route>
-                            </Switch>
+                            <Header />
+                            <main>
+                                <Switch>
+                                    <Route exact path="/">
+                                        <HomePage />
+                                    </Route>
+                                    <Route path="/instrument/:ticker/:ticker2">
+                                        <Instrument />
+                                    </Route>
+                                    <Route path="">
+                                        <h1>404</h1>
+                                    </Route>
+                                </Switch>
+                            </main>
+                            <Footer />
                         </div>
                     </SymbolsContext.Provider>
                 )}
             </React.Fragment>
         </Router>
     );
-}
-
-const Instrument = () => {
-    const { ticker, ticker2 } = useParams();
-    return <h1>You are on {ticker}/{ticker2} subpage</h1>;
 }
 
 export default App;
