@@ -48,6 +48,9 @@ function App() {
                                     <Route exact path="/">
                                         <HomePage />
                                     </Route>
+                                    <Route exact path="/instrument/:ticker">
+                                        <Instrument />
+                                    </Route>
                                     <Route path="/instrument/:ticker/:ticker2">
                                         <Instrument />
                                     </Route>
