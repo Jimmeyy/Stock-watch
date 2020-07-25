@@ -38,6 +38,12 @@ const PaginationWrapper = styled.div`
                 border-color: ${({ theme }) => theme.colors.blue};
             }
         }
+
+        &.previous a,
+        &.next a {
+            min-width: 80px;
+            text-align: center;
+        }
     }
 `;
 

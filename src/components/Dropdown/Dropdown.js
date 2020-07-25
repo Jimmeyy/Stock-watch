@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { DropdownWrapper, DropdownMain, DropdownList } from './Dropdown.style';
 
-function Dropdown({ listElements, onChange }) {
+function Dropdown({ dropdownElements, onChange }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState(listElements[0].displayValue);
+    const [value, setValue] = useState(dropdownElements[0].displayValue);
     const dropdownRef = useRef(null);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ function Dropdown({ listElements, onChange }) {
             </DropdownMain>
             {isOpen && (
                 <DropdownList>
-                    {listElements.map(element => (
+                    {dropdownElements.map(element => (
                         <li key={element.value} data-value={element.value} onClick={handleListElementClick}>
                             {element.displayValue}
                         </li>
@@ -50,7 +50,7 @@ function Dropdown({ listElements, onChange }) {
 }
 
 Dropdown.propTypes = {
-    listElements: PropTypes.array.isRequired,
+    dropdownElements: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
 };
 
