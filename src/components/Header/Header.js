@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HeaderWrapper, HeaderLogo, HeaderSearch, HeaderMenu, HeaderContainer } from './Header.style';
+import { Link } from 'react-router-dom';
 
 function Header() {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -12,7 +13,7 @@ function Header() {
         <HeaderWrapper>
             <HeaderContainer>
                 <HeaderLogo>
-                    <a href="/">Stock-Watch</a>
+                    <Link to="/">Stock-Watch</Link>
                 </HeaderLogo>
                 <HeaderSearch>
                     <div className="search-main">
