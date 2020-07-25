@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MarketListTopBar, MarketListWrapper, MarketListHeader, MarketListMain } from './MarketList.style';
 import { Button, Loader, PaginationWrapper } from 'components/common';
@@ -8,8 +8,9 @@ import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import lodash from 'lodash';
 import { fetchMultiple } from 'data/fetch';
+import SymbolsContext from 'data/context/SymbolsContext';
 
-const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListFields }) => {
+const MarketList = ({ marketListDropdownElements, marketListFields }) => {
     const [instrumentType, setInstrumentType] = useState('forex');
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,7 @@ const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListF
         field: '',
         direction: false,
     });
+    const instrumentSymbols = useContext(SymbolsContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -185,7 +187,6 @@ const MarketList = ({ instrumentSymbols, marketListDropdownElements, marketListF
 };
 
 MarketList.propTypes = {
-    instrumentSymbols: PropTypes.object.isRequired,
     marketListDropdownElements: PropTypes.array.isRequired,
     marketListFields: PropTypes.array.isRequired,
 };
