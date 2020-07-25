@@ -55,16 +55,11 @@ const GlobalStyle = createGlobalStyle`
 
     main {
         padding: 40px 0;
-    }
-
-    .app {
-        min-height: 100vh;
+        min-height: calc(100vh - 360px);
     }
 
     .page {
         position: relative;
-        min-height: 100vh;
-        padding-bottom: 295px;
     }
 `;
 

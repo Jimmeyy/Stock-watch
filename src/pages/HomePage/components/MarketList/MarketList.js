@@ -16,7 +16,7 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [pagination, setPagination] = useState({
-        perPage: 2,
+        perPage: 5,
         currentPage: 1,
     });
     const [sortBy, setSortBy] = useState({
