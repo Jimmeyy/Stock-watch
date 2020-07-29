@@ -48,10 +48,10 @@ function App() {
                                     <Route exact path="/">
                                         <HomePage />
                                     </Route>
-                                    <Route exact path="/instrument/:ticker">
+                                    <Route exact path="/instrument/:instrumentType/:ticker">
                                         <Instrument />
                                     </Route>
-                                    <Route path="/instrument/:ticker/:ticker2">
+                                    <Route path="/instrument/:instrumentType/:ticker/:ticker2">
                                         <Instrument />
                                     </Route>
                                     <Route path="">

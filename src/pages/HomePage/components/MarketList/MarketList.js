@@ -155,7 +155,7 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
                             {displayData.map((element, index) => {
                                 if (element && element.s === 'ok') {
                                     return (
-                                        <Link to={`/instrument/${element.ticker}`}>
+                                        <Link to={`/instrument/${instrumentType}/${element.ticker}`}>
                                             <ul key={index}>
                                                 <li>{index + 1}</li>
                                                 <li>{element.ticker}</li>
