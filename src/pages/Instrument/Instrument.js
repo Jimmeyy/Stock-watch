@@ -7,6 +7,20 @@ import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
 import Chart from './components/Chart';
+// import Moment from 'react-moment';
+import moment from 'moment';
+
+// const options: {
+//     chart: {
+//         id: 'main-chart',
+//     },
+//     xaxis: {
+//         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+//         labels: {
+//             format: 'dd/MM',
+//         },
+//     },
+// },
 
 const Instrument = () => {
     const { instrumentType, ticker, ticker2 } = useParams();
@@ -14,7 +28,19 @@ const Instrument = () => {
 
     const [instrumentData, setInstrumentData] = useState({});
     const [chartData, setChartData] = useState({
-        options: {},
+        options: {
+            chart: {
+                id: 'main-chart',
+            },
+            xaxis: {
+                labels: {
+                    formatter: function(value) {
+                        const label = moment(value).format('D, MMM, YYYY');
+                        return label;
+                    },
+                },
+            },
+        },
         series: [],
     });
     const instrumentSymbols = useContext(SymbolsContext);
@@ -30,7 +56,7 @@ const Instrument = () => {
             setInstrumentData(data);
             if (data.c) {
                 const series = data.c.map((row, index) => {
-                    const item = [data.t[index], data.o[index], data.h[index], data.l[index], data.c[index]];
+                    const item = [data.t[index] * 1000, data.o[index], data.h[index], data.l[index], data.c[index]];
                     return item;
                 });
                 setChartData({
@@ -55,7 +81,7 @@ const Instrument = () => {
                         <span>{instrumentType}</span> - You are on {instrumentSymbol} page.
                     </h1>
                 </InstrumentHeader>
-                <Chart options={{}} series={chartData.series} />
+                <Chart options={chartData.options} series={chartData.series} />
             </Container>
         </div>
     );
