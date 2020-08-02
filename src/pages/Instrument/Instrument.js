@@ -1,28 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from 'components/common';
-import Chart from 'react-apexcharts';
 import { InstrumentHeader } from './Instrument.style';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
-
-const chartOptions = {
-    chart: {
-        id: 'basic-bar',
-    },
-    xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-    },
-};
-
-const chartSeries = [
-    {
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-];
+import Chart from './components/Chart';
 
 const Instrument = () => {
     const { instrumentType, ticker, ticker2 } = useParams();
@@ -71,9 +55,8 @@ const Instrument = () => {
                         <span>{instrumentType}</span> - You are on {instrumentSymbol} page.
                     </h1>
                 </InstrumentHeader>
-                <Chart options={{}} series={chartData.series} type="candlestick" width="800px" />
+                <Chart options={{}} series={chartData.series} />
             </Container>
-            {console.log(chartData)}
         </div>
     );
 };
