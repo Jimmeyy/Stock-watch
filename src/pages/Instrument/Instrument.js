@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container } from 'components/common';
+import { useParams, useHistory } from 'react-router-dom';
+import { Container, Button } from 'components/common';
 import { InstrumentHeader } from './Instrument.style';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, calculatePriceDayChange } from 'utils';
@@ -23,6 +23,7 @@ import moment from 'moment';
 // },
 
 const Instrument = () => {
+    const history = useHistory();
     const { instrumentType, ticker, ticker2 } = useParams();
     const instrumentSymbol = ticker2 ? `${ticker}/${ticker2}` : ticker;
 
@@ -77,6 +78,7 @@ const Instrument = () => {
         <div className="instrument-page page">
             <Container>
                 <InstrumentHeader>
+                    <Button onClick={() => history.goBack()}>Back</Button>
                     <h1>
                         <span>{instrumentType}</span> - You are on {instrumentSymbol} page.
                     </h1>
