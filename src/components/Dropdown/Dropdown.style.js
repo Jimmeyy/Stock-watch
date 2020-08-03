@@ -51,6 +51,7 @@ export const DropdownMain = styled.div`
 
 export const DropdownList = styled.ul`
     position: absolute;
+    z-index: 999;
     top: 40px;
     left: 0;
     width: 100%;

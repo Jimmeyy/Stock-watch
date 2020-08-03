@@ -16,7 +16,7 @@ const endpoints = {
 };
 
 export const resolutions = {
-    min1: '1',
+    // min1: '1',
     min5: '5',
     min15: '15',
     min30: '30',
