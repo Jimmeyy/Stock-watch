@@ -34,7 +34,7 @@ function Dropdown({ dropdownElements, onChange }) {
         <DropdownWrapper ref={dropdownRef}>
             <DropdownMain isOpen={isOpen} onClick={handleListClick}>
                 <span>{value}</span>
-                <img src="icons/white/arrow-down.svg" alt="arrow-down" />
+                <img src="/icons/white/arrow-down.svg" alt="arrow-down" />
             </DropdownMain>
             {isOpen && (
                 <DropdownList>

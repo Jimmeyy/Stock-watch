@@ -69,19 +69,19 @@ export const FooterSocials = styled.ul`
         background: no-repeat center center / 100%;
 
         &.facebook {
-            background-image: url('./icons/white/facebook.svg');
+            background-image: url('/icons/white/facebook.svg');
         }
 
         &.instagram {
-            background-image: url('./icons/white/instagram.svg');
+            background-image: url('/icons/white/instagram.svg');
         }
 
         &.twitter {
-            background-image: url('./icons/white/twitter.svg');
+            background-image: url('/icons/white/twitter.svg');
         }
 
         &.youtube {
-            background-image: url('./icons/white/youtube.svg');
+            background-image: url('/icons/white/youtube.svg');
         }
     }
 `;

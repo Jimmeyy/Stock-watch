@@ -54,7 +54,7 @@ const Button = styled.button`
             }
 
             &.icon-play-white {
-                background-image: url('icons/white/play.svg');
+                background-image: url('/icons/white/play.svg');
                 background-size: 16px;
             }
         `}

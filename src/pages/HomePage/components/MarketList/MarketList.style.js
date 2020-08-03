@@ -51,11 +51,11 @@ export const MarketListHeader = styled.div`
             background: no-repeat right center / 16px;
 
             &.sort-asc {
-                background-image: url('./icons/black/arrow-up.svg');
+                background-image: url('/icons/black/arrow-up.svg');
             }
 
             &.sort-desc {
-                background-image: url('./icons/black/arrow-down.svg');
+                background-image: url('/icons/black/arrow-down.svg');
             }
         }
     }
