@@ -5,7 +5,7 @@ import { Button, Loader, PaginationWrapper } from 'components/common';
 import Dropdown from 'components/Dropdown';
 import ReactPaginate from 'react-paginate';
 import endpoints, { resolutions } from 'data/endpoints';
-import { dateToTimestamp, calculatePriceDayChange } from 'utils';
+import { dateToTimestamp, convertDataFormat } from 'utils';
 import lodash from 'lodash';
 import { fetchMultiple } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
@@ -59,20 +59,8 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
         const response = await fetchMultiple(urls);
 
         const displayData = response.map((element, index) => {
-            const { changePercent, priceIsBigger } = calculatePriceDayChange(element);
-
-            if (element && element.s === 'ok') {
-                return {
-                    ...element,
-                    ticker: chosenTickers[index].ticker,
-                    changePercent,
-                    priceIsBigger,
-                    o: element.o[element.o.length - 1],
-                    h: element.h[element.o.length - 1],
-                    l: element.l[element.o.length - 1],
-                    c: element.c[element.o.length - 1],
-                    v: element.v[element.o.length - 1],
-                };
+            if (element.s === 'ok') {
+                return convertDataFormat(chosenTickers[index].ticker, element);
             }
         });
         return displayData;
