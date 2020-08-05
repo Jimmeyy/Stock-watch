@@ -8,38 +8,22 @@ export const MarketListTopBar = styled.div`
 
 export const MarketListWrapper = styled.div`
     margin-top: 50px;
-
-    ul {
-        display: flex;
-    }
-
-    li {
-        flex-grow: 1;
-        flex-basis: 0;
-        cursor: pointer;
-    }
-
-    .price-up {
-        color: ${({ theme }) => theme.colors.green};
-        font-weight: 600;
-    }
-
-    .price-down {
-        color: ${({ theme }) => theme.colors.red};
-        font-weight: 600;
-    }
 `;
 
 export const MarketListHeader = styled.div`
     ul {
+        display: flex;
         padding: 8px 10px;
         border-bottom: 2px solid #dedede;
         user-select: none;
     }
 
     li {
+        flex-grow: 1;
+        flex-basis: 0;
         font-weight: 600;
         transition: all 0.3s ease;
+        cursor: pointer;
 
         &:hover {
             color: ${({ theme }) => theme.colors.blue};
@@ -62,7 +46,7 @@ export const MarketListHeader = styled.div`
 `;
 
 export const MarketListMain = styled.div`
-    ul {
+    /* ul {
         padding: 12px 10px;
         border-bottom: 1px solid #dedede;
         background-color: transparent;
@@ -75,5 +59,5 @@ export const MarketListMain = styled.div`
     }
 
     li {
-    }
+    } */
 `;

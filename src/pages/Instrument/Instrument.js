@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Container, Button } from 'components/common';
 import { InstrumentHeader } from './Instrument.style';
 import endpoints, { resolutions } from 'data/endpoints';
+import InstrumentRow from 'components/InstrumentRow';
 import { dateToTimestamp, convertDataFormat } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
@@ -59,7 +60,7 @@ const Instrument = () => {
             const data = await fetchSingle(endpoint);
             const dataDay = await fetchSingle(endpointDay);
             setInstrumentData(data);
-            // setInstrumentDataDay(convertDataFormat(instrumentSymbol, dataDay));
+            setInstrumentDataDay(convertDataFormat(instrumentSymbol, dataDay));
             if (data.c) {
                 const series = data.c.map((row, index) => {
                     const item = [data.t[index] * 1000, data.o[index], data.h[index], data.l[index], data.c[index]];
@@ -88,6 +89,7 @@ const Instrument = () => {
                         <span>{instrumentType}</span> - You are on {instrumentSymbol} page.
                     </h1>
                 </InstrumentHeader>
+                <InstrumentRow element={instrumentDataDay} />
                 <Chart options={chartData.options} series={chartData.series} />
             </Container>
         </div>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { MarketListTopBar, MarketListWrapper, MarketListHeader, MarketListMain } from './MarketList.style';
 import { Button, Loader, PaginationWrapper } from 'components/common';
 import Dropdown from 'components/Dropdown';
+import InstrumentRow from 'components/InstrumentRow';
 import ReactPaginate from 'react-paginate';
 import endpoints, { resolutions } from 'data/endpoints';
 import { dateToTimestamp, convertDataFormat } from 'utils';
@@ -144,16 +145,7 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
                                 if (element && element.s === 'ok') {
                                     return (
                                         <Link to={`/instrument/${instrumentType}/${element.ticker}`}>
-                                            <ul key={index}>
-                                                <li>{index + 1}</li>
-                                                <li>{element.ticker}</li>
-                                                <li>{element.c}</li>
-                                                <li>{element.o}</li>
-                                                <li>{element.h}</li>
-                                                <li>{element.l}</li>
-                                                <li>{element.v}</li>
-                                                <li className={element.priceIsBigger ? 'price-up' : 'price-down'}>{element.changePercent} %</li>
-                                            </ul>
+                                            <InstrumentRow element={element} />
                                         </Link>
                                     );
                                 }

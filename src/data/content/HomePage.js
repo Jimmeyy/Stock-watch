@@ -15,10 +15,6 @@ export const marketListDropdownElements = [
 
 export const marketListFields = [
     {
-        displayValue: 'Lp',
-        value: 'lp',
-    },
-    {
         displayValue: 'Name',
         value: 'ticker',
     },
