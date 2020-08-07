@@ -8,7 +8,7 @@ import { dateToTimestamp, convertDataFormat } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
 import Chart from './components/Chart';
-// import Moment from 'react-moment';
+import Articles from 'components/Articles';
 import moment from 'moment';
 
 // const options: {
@@ -91,6 +91,7 @@ const Instrument = () => {
                 </InstrumentHeader>
                 <InstrumentRow element={instrumentDataDay} />
                 <Chart options={chartData.options} series={chartData.series} />
+                <Articles endpoint={endpoints.news(instrumentType)} />
             </Container>
         </div>
     );

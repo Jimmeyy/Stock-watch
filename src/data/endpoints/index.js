@@ -13,6 +13,8 @@ const endpoints = {
     forexSymbols: `https://finnhub.io/api/v1/forex/symbol?exchange=oanda&token=${token}`,
     forexCandles: (symbol, resolution, dateFrom, dateTo) =>
         `https://finnhub.io/api/v1/forex/candle?symbol=${symbol}&resolution=${resolution}&from=${dateFrom}&to=${dateTo}&token=${token}`,
+    // NEWS
+    news: category => `https://finnhub.io/api/v1/news?category=${category}&token=${token}`,
 };
 
 export const resolutions = {
