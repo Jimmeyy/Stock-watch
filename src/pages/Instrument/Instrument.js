@@ -9,7 +9,6 @@ import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
 import Chart from './components/Chart';
 import Articles from 'components/Articles';
-import moment from 'moment';
 
 // const options: {
 //     chart: {
@@ -27,25 +26,8 @@ const Instrument = () => {
     const history = useHistory();
     const { instrumentType, ticker, ticker2 } = useParams();
     const instrumentSymbol = ticker2 ? `${ticker}/${ticker2}` : ticker;
-
-    const [instrumentData, setInstrumentData] = useState({});
+    const [chartEndpoint, setChartEndpoint] = useState('');
     const [instrumentDataDay, setInstrumentDataDay] = useState({});
-    const [chartData, setChartData] = useState({
-        options: {
-            chart: {
-                id: 'main-chart',
-            },
-            xaxis: {
-                labels: {
-                    formatter: function(value) {
-                        const label = moment(value).format('D, MMM, YYYY');
-                        return label;
-                    },
-                },
-            },
-        },
-        series: [],
-    });
     const instrumentSymbols = useContext(SymbolsContext);
 
     useEffect(() => {
@@ -55,27 +37,11 @@ const Instrument = () => {
             const dateFromDay = dateToTimestamp(date.setDate(date.getDate() - 1)); // yesterday
             const dateFrom = dateToTimestamp(date.setDate(date.getDate() - 30)); // 30 days ago
             const instrument = instrumentSymbols[instrumentType].find(instrument => instrument.displaySymbol === instrumentSymbol);
-            const endpoint = endpoints[`${instrumentType}Candles`](instrument && instrument.symbol, resolutions.day, dateFrom, dateTo);
+            const chartEndpoint = endpoints[`${instrumentType}Candles`](instrument && instrument.symbol, resolutions.day, dateFrom, dateTo);
             const endpointDay = endpoints[`${instrumentType}Candles`](instrument && instrument.symbol, resolutions.day, dateFromDay, dateTo);
-            const data = await fetchSingle(endpoint);
             const dataDay = await fetchSingle(endpointDay);
-            setInstrumentData(data);
+            setChartEndpoint(chartEndpoint);
             setInstrumentDataDay(convertDataFormat(instrumentSymbol, dataDay));
-            if (data.c) {
-                const series = data.c.map((row, index) => {
-                    const item = [data.t[index] * 1000, data.o[index], data.h[index], data.l[index], data.c[index]];
-                    return item;
-                });
-                setChartData({
-                    ...chartData,
-                    series: [
-                        {
-                            name: 'series-1',
-                            data: series,
-                        },
-                    ],
-                });
-            }
         };
         fetchData();
     }, []);
@@ -90,7 +56,7 @@ const Instrument = () => {
                     </h1>
                 </InstrumentHeader>
                 <InstrumentRow element={instrumentDataDay} />
-                <Chart options={chartData.options} series={chartData.series} />
+                <Chart endpoint={chartEndpoint} />
                 <Articles endpoint={endpoints.news(instrumentType)} />
             </Container>
         </div>

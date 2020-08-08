@@ -23,11 +23,11 @@ export const dropdownTimeFrames = [
         value: 'Y1',
     },
     {
-        displayValue: 'year1',
+        displayValue: 'year2',
         value: 'Y2',
     },
     {
-        displayValue: 'year1',
+        displayValue: 'year3',
         value: 'Y3',
     },
 ];
