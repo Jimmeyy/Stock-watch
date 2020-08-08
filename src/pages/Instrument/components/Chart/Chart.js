@@ -4,10 +4,10 @@ import { ChartWrapper, ChartHeader, ChartMain } from './Chart.style';
 import PropTypes from 'prop-types';
 import Dropdown from 'components/Dropdown';
 import { fetchSingle } from 'data/fetch';
-import { dropdownResolutions, dropdownTimeFrames, dropdownChartTypes } from 'data/content/InstrumentPage';
+import { dropdownIntervals, dropdownTimeFrames, dropdownChartTypes } from 'data/content/InstrumentPage';
 import moment from 'moment';
 
-const Chart = ({ endpoint }) => {
+const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) => {
     const [chartData, setChartData] = useState({
         options: {
             chart: {
@@ -50,8 +50,8 @@ const Chart = ({ endpoint }) => {
         };
         fetchData();
     }, [endpoint]);
-    // Temp
-    const dropdownChange = value => {
+
+    const dropdownTypesChange = value => {
         console.log(chartData);
     };
 
@@ -62,9 +62,17 @@ const Chart = ({ endpoint }) => {
                     <h2>Chart Header</h2>
                 </div>
                 <div>
-                    <Dropdown dropdownElements={dropdownChartTypes} onChange={dropdownChange} />
-                    <Dropdown dropdownElements={dropdownResolutions} onChange={dropdownChange} />
-                    <Dropdown dropdownElements={dropdownTimeFrames} onChange={dropdownChange} />
+                    <Dropdown dropdownElements={dropdownChartTypes} onChange={dropdownTypesChange} />
+                    <Dropdown
+                        dropdownElements={dropdownIntervals}
+                        onChange={dropdownIntervalsChange}
+                        activeElement={dropdownIntervals.find(item => item.displayValue === 'day')}
+                    />
+                    <Dropdown
+                        dropdownElements={dropdownTimeFrames}
+                        onChange={dropdownTimeFramesChange}
+                        activeElement={dropdownTimeFrames.find(item => item.displayValue === 'month1')}
+                    />
                 </div>
             </ChartHeader>
             <ChartMain>
@@ -76,6 +84,8 @@ const Chart = ({ endpoint }) => {
 
 Chart.propTypes = {
     endpoint: PropTypes.string.isRequired,
+    dropdownIntervalsChange: PropTypes.func.isRequired,
+    dropdownTimeFramesChange: PropTypes.func.isRequired,
 };
 
 export default Chart;

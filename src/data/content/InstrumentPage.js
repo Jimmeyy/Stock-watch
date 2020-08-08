@@ -1,6 +1,6 @@
 import { resolutions } from 'data/endpoints';
 
-export const dropdownResolutions = Object.entries(resolutions).map(row => ({
+export const dropdownIntervals = Object.entries(resolutions).map(row => ({
     displayValue: row[0],
     value: row[1],
 }));
@@ -8,34 +8,34 @@ export const dropdownResolutions = Object.entries(resolutions).map(row => ({
 export const dropdownTimeFrames = [
     {
         displayValue: 'month1',
-        value: 'M1',
+        value: '30',
     },
     {
         displayValue: 'month3',
-        value: 'M3',
+        value: '90',
     },
     {
         displayValue: 'month6',
-        value: 'M6',
+        value: '180',
     },
     {
         displayValue: 'year1',
-        value: 'Y1',
+        value: '360',
     },
     {
         displayValue: 'year2',
-        value: 'Y2',
+        value: '720',
     },
     {
         displayValue: 'year3',
-        value: 'Y3',
+        value: '1080',
     },
 ];
 
 export const dropdownChartTypes = [
     {
         displayValue: 'Candles',
-        value: 'candles',
+        value: 'candlestick',
     },
     {
         displayValue: 'Linear',
