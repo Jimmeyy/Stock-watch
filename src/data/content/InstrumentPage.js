@@ -39,6 +39,6 @@ export const dropdownChartTypes = [
     },
     {
         displayValue: 'Linear',
-        value: 'linear',
+        value: 'line',
     },
 ];

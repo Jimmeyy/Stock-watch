@@ -7,21 +7,34 @@ import { fetchSingle } from 'data/fetch';
 import { dropdownIntervals, dropdownTimeFrames, dropdownChartTypes } from 'data/content/InstrumentPage';
 import moment from 'moment';
 
-const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) => {
-    const [chartData, setChartData] = useState({
-        options: {
-            chart: {
-                id: 'main-chart',
-            },
-            xaxis: {
-                labels: {
-                    formatter: function(value) {
-                        const label = moment(value).format('D, MMM, YYYY');
-                        return label;
-                    },
-                },
-            },
+const chartOptions = {
+    chart: {
+        id: 'main-chart',
+        animations: {
+            enabled: false,
         },
+        toolbar: {
+            show: false,
+        },
+        zoom: {
+            enabled: false,
+        }
+    },
+    xaxis: {
+        type: 'numeric',
+        labels: {
+            formatter: value => moment(value).format('D, MMM, YYYY'),
+        },
+    },
+    yaxis: {
+        opposite: true,
+    },
+};
+
+const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) => {
+    const [chartType, setChartType] = useState(dropdownChartTypes[0].value);
+    const [chartData, setChartData] = useState({
+        options: chartOptions,
         series: [],
     });
 
@@ -52,7 +65,7 @@ const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) 
     }, [endpoint]);
 
     const dropdownTypesChange = value => {
-        console.log(chartData);
+        setChartType(value);
     };
 
     return (
@@ -76,7 +89,8 @@ const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) 
                 </div>
             </ChartHeader>
             <ChartMain>
-                <ApexChart options={chartData.options} series={chartData.series} type="candlestick" width="100%" />
+                {chartType === 'line' && <ApexChart options={chartData.options} series={chartData.series} type={chartType} width="100%" />}
+                {chartType === 'candlestick' && <ApexChart options={chartData.options} series={chartData.series} type={chartType} width="100%" />}
             </ChartMain>
         </ChartWrapper>
     );
