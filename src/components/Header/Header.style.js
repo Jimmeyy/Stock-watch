@@ -21,33 +21,6 @@ export const HeaderLogo = styled.div`
     }
 `;
 
-export const HeaderSearch = styled.div`
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-
-    .search-main {
-        border-radius: 5px;
-        overflow: hidden;
-        padding-right: 50px;
-        background-color: #404040;
-        background-image: url('/icons/white/search.svg');
-        background-repeat: no-repeat;
-        background-size: 23px;
-        background-position: right 14px center;
-        cursor: pointer;
-    }
-
-    input {
-        background-color: transparent;
-        border: 0;
-        padding: 8px 16px;
-        width: 100%;
-        color: ${({ theme }) => theme.colors.white};
-    }
-`;
-
 export const HeaderMenu = styled.div`
     .menu {
         position: relative;

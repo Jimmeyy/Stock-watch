@@ -54,7 +54,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     main {
-        padding: 40px 0;
+        /* padding: 40px 0; */
         min-height: calc(100vh - 360px);
     }
 

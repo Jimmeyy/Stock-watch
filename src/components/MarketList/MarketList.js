@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { MarketListTopBar, MarketListWrapper, MarketListHeader, MarketListMain } from './MarketList.style';
+import { MarketListTopBar, MarketListWrapper, MarketListHeader, MarketListMain, MarketListContainer } from './MarketList.style';
 import { Button, Loader, PaginationWrapper } from 'components/common';
 import Dropdown from 'components/Dropdown';
 import InstrumentRow from 'components/InstrumentRow';
@@ -111,7 +111,7 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
     };
 
     return (
-        <React.Fragment>
+        <MarketListContainer>
             <MarketListTopBar>
                 <div className="dropdown">
                     <Dropdown dropdownElements={marketListDropdownElements} onChange={changeInstrumentType} />
@@ -164,8 +164,8 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
                         />
                     </PaginationWrapper>
                 </React.Fragment>
-            )};
-        </React.Fragment>
+            )}
+        </MarketListContainer>
     );
 };
 

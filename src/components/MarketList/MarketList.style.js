@@ -45,6 +45,10 @@ export const MarketListHeader = styled.div`
     }
 `;
 
+export const MarketListContainer = styled.div`
+    
+`;
+
 export const MarketListMain = styled.div`
     /* ul {
         padding: 12px 10px;
