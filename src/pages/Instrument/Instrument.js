@@ -71,7 +71,7 @@ const Instrument = () => {
     };
 
     return (
-        <div className="instrument-page page">
+        <div className="page page-instrument">
             <Container>
                 <InstrumentHeader>
                     <Button onClick={() => history.goBack()}>Back</Button>

@@ -1,17 +1,18 @@
 import React from 'react';
-import { Container } from 'components/common';
+import { Container, Heading } from 'components/common';
 import MarketList from 'components/MarketList';
 import { marketListDropdownElements, marketListFields } from 'data/content/HomePage';
 import { HeroSection, HeroSectionContent, TableSection } from './HomePage.style';
+import SearchInput from 'components/SearchInput';
 
 function HomePage() {
     return (
-        <div className="home-page page">
+        <div className="page page-home">
             <HeroSection>
                 <Container>
                     <HeroSectionContent>
-                        <h1>Search for selected instrument.</h1>
-                        {/* <SearchInput /> */}
+                        <Heading>Search for selected instrument.</Heading>
+                        <SearchInput />
                     </HeroSectionContent>
                 </Container>
             </HeroSection>

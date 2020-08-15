@@ -60,6 +60,10 @@ const GlobalStyle = createGlobalStyle`
 
     .page {
         position: relative;
+
+        &-instrument {
+            padding: 50px 0;
+        }
     }
 `;
 
