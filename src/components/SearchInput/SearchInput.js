@@ -4,6 +4,7 @@ import InputText from 'components/common/InputText';
 import Dropdown from 'components/Dropdown';
 import SymbolsContext from 'data/context/SymbolsContext';
 import { marketListDropdownElements } from 'data/content/HomePage';
+import { Link } from 'react-router-dom';
 
 const SearchInput = () => {
     const [inputValue, setInputValue] = useState('');
@@ -40,7 +41,9 @@ const SearchInput = () => {
                 <InputText value={inputValue} onChange={handleInputOnChange} />
                 <SearchInputList isVisible={searchResults.length}>
                     {searchResults.map(element => (
-                        <li key={element.displaySymbol}>{element.displaySymbol}</li>
+                        <Link to={`/instrument/${instrumentType}/${element.displaySymbol}`} key={element.displaySymbol}>
+                            <li>{element.displaySymbol}</li>
+                        </Link>
                     ))}
                     {searchResults.length >= MAX_LIST_LENGTH && <li>And {searchResultsCount - MAX_LIST_LENGTH} more...</li>}
                 </SearchInputList>
