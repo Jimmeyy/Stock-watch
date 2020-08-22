@@ -1,19 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { SearchInputWrapper, SearchInputMain, SearchInputList } from './SearchInput.style';
 import InputText from 'components/common/InputText';
-import Button from 'components/Dropdown';
+import Dropdown from 'components/Dropdown';
 import SymbolsContext from 'data/context/SymbolsContext';
+import { marketListDropdownElements } from 'data/content/HomePage';
 
 const SearchInput = () => {
     const [inputValue, setInputValue] = useState('');
     const [searchResults, setsearchResults] = useState([]);
     const [searchResultsCount, setSeatchResultsCount] = useState(0);
+    const [instrumentType, setInstrumentType] = useState(marketListDropdownElements[0].value);
     const instrumentSymbols = useContext(SymbolsContext);
 
     const MAX_LIST_LENGTH = 10;
 
     const handleSearchResults = value => {
-        let results = instrumentSymbols['stocks'].filter(element => element.description.toUpperCase().includes(value.toUpperCase()));
+        const field = instrumentType === 'stocks' ? 'description' : 'displaySymbol';
+        let results = instrumentSymbols[instrumentType].filter(element => element[field].toUpperCase().includes(value.toUpperCase()));
         setSeatchResultsCount(results.length);
         if (results.length > MAX_LIST_LENGTH) {
             results = results.slice(0, MAX_LIST_LENGTH);
@@ -27,6 +30,10 @@ const SearchInput = () => {
         handleSearchResults(value);
     };
 
+    const handleDropdownChange = value => {
+        setInstrumentType(value);
+    };
+
     return (
         <SearchInputWrapper>
             <SearchInputMain>
@@ -38,6 +45,7 @@ const SearchInput = () => {
                     {searchResults.length >= MAX_LIST_LENGTH && <li>And {searchResultsCount - MAX_LIST_LENGTH} more...</li>}
                 </SearchInputList>
             </SearchInputMain>
+            <Dropdown dropdownElements={marketListDropdownElements} onChange={handleDropdownChange} />
         </SearchInputWrapper>
     );
 };

@@ -13,7 +13,7 @@ import SymbolsContext from 'data/context/SymbolsContext';
 import { Link } from 'react-router-dom';
 
 const MarketList = ({ marketListDropdownElements, marketListFields }) => {
-    const [instrumentType, setInstrumentType] = useState('forex');
+    const [instrumentType, setInstrumentType] = useState(marketListDropdownElements[0].value);
     const [displayData, setDisplayData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [pagination, setPagination] = useState({

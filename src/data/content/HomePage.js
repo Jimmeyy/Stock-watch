@@ -1,11 +1,11 @@
 export const marketListDropdownElements = [
     {
-        displayValue: 'Forex',
-        value: 'forex',
-    },
-    {
         displayValue: 'Stocks',
         value: 'stocks',
+    },
+    {
+        displayValue: 'Forex',
+        value: 'forex',
     },
     {
         displayValue: 'Crypto',
