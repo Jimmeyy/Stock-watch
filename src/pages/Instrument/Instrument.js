@@ -11,18 +11,6 @@ import Chart from 'components/Chart';
 import Articles from 'components/Articles';
 import { dropdownIntervals, dropdownTimeFrames } from 'data/content/InstrumentPage';
 
-// const options: {
-//     chart: {
-//         id: 'main-chart',
-//     },
-//     xaxis: {
-//         categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-//         labels: {
-//             format: 'dd/MM',
-//         },
-//     },
-// },
-
 const Instrument = () => {
     const instrumentSymbols = useContext(SymbolsContext);
     const history = useHistory();

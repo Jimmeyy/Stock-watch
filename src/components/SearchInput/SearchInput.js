@@ -41,9 +41,9 @@ const SearchInput = () => {
                 <InputText value={inputValue} onChange={handleInputOnChange} />
                 <SearchInputList isVisible={searchResults.length}>
                     {searchResults.map(element => (
-                        <Link to={`/instrument/${instrumentType}/${element.displaySymbol}`} key={element.displaySymbol}>
-                            <li>{element.displaySymbol}</li>
-                        </Link>
+                        <li key={element.displaySymbol}>
+                            <Link to={`/instrument/${instrumentType}/${element.displaySymbol}`}>{element.displaySymbol}</Link>
+                        </li>
                     ))}
                     {searchResults.length >= MAX_LIST_LENGTH && <li>And {searchResultsCount - MAX_LIST_LENGTH} more...</li>}
                 </SearchInputList>

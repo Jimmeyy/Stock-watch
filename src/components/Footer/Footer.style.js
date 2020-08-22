@@ -39,6 +39,10 @@ export const FooterList = styled.div`
             background-color: ${({ theme }) => theme.colors.white};
         }
     }
+
+    a {
+        color: ${({ theme }) => theme.colors.white};
+    }
 `;
 
 export const FooterCol = styled.div`

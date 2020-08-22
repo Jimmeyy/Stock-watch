@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Button, InputText } from 'components/common';
 import { FooterWrapper, FooterList, FooterCol, FooterCopyrights, FooterSocials, FooterSubscription } from './Footer.style';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
@@ -10,31 +11,58 @@ function Footer() {
                     <FooterCol>
                         <ul>
                             <li className="footer-heading">Stocks</li>
-                            <li>Aapl</li>
-                            <li>Msft</li>
-                            <li>Amzn</li>
-                            <li>Goog</li>
-                            <li>Baba</li>
+                            <li>
+                                <Link to={`/instrument/stocks/AAPL`}>Aapl</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/stocks/MSFT`}>Msft</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/stocks/AMZN`}>Amzn</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/stocks/GOOG`}>goog</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/stocks/BABA`}>baba</Link>
+                            </li>
                         </ul>
                     </FooterCol>
                     <FooterCol>
                         <ul>
                             <li className="footer-heading">Forex</li>
-                            <li>EurUsd</li>
-                            <li>GbpUsd</li>
-                            <li>NzdUsd</li>
-                            <li>AudUsd</li>
-                            <li>UsdJpy</li>
+                            <li>
+                                <Link to={`/instrument/forex/EUR/USD`}>EurUsd</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/forex/GBP/USD`}>GbpUsd</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/forex/NZD/USD`}>NzdUsd</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/forex/AUD/USD`}>AudUsd</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/forex/USD/JPY`}>UsdJpy</Link>
+                            </li>
                         </ul>
                     </FooterCol>
                     <FooterCol>
                         <ul>
                             <li className="footer-heading">Crypto</li>
-                            <li>Bitcoin</li>
-                            <li>Ethereum</li>
-                            <li>XRP</li>
-                            <li>Tether</li>
-                            <li>Litecoin</li>
+                            <li>
+                                <Link to={`/instrument/crypto/BTC/USDT`}>Bitcoin</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/crypto/ETH/USDT`}>Etherium</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/crypto/XRP/USDT`}>XRP</Link>
+                            </li>
+                            <li>
+                                <Link to={`/instrument/crypto/LTC/USDT`}>Litecoin</Link>
+                            </li>
                         </ul>
                     </FooterCol>
                     <FooterCol>
