@@ -15,15 +15,16 @@ const Instrument = () => {
     const instrumentSymbols = useContext(SymbolsContext);
     const history = useHistory();
     const { instrumentType, ticker, ticker2 } = useParams();
-    const instrumentSymbol = ticker2 ? `${ticker}/${ticker2}` : ticker;
+    // const instrumentSymbol = ticker2 ? `${ticker}/${ticker2}` : ticker;
 
+    const [instrumentSymbol, setInstrumentSymbol] = useState(ticker2 ? `${ticker}/${ticker2}` : ticker);
     const [chartEndpoint, setChartEndpoint] = useState('');
     const [chartInterval, setChartInterval] = useState(dropdownIntervals.find(item => item.displayValue === 'h1'));
     const [chartTimeFrame, setChartTimeFrame] = useState(dropdownTimeFrames.find(item => item.displayValue === 'month1'));
     const [instrumentDataDay, setInstrumentDataDay] = useState({});
 
-    const prevTicker = usePrevious(ticker);
-    const prevTicker2 = usePrevious(ticker2);
+    // const prevTicker = usePrevious(ticker);
+    // const prevTicker2 = usePrevious(ticker2);
 
     useEffect(() => {
         const date = new Date();
@@ -32,7 +33,7 @@ const Instrument = () => {
         const instrument = instrumentSymbols[instrumentType].find(instrument => instrument.displaySymbol === instrumentSymbol);
         const endpoint = endpoints[`${instrumentType}Candles`](instrument && instrument.symbol, chartInterval.value, dateFrom, dateTo);
         setChartEndpoint(endpoint);
-    }, [chartInterval, chartTimeFrame]);
+    }, [chartInterval, chartTimeFrame, instrumentSymbol]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,7 +46,11 @@ const Instrument = () => {
             setInstrumentDataDay(convertDataFormat(instrumentSymbol, dataDay));
         };
         fetchData();
-    }, []);
+    }, [instrumentSymbol]);
+
+    useEffect(() => {
+        setInstrumentSymbol(ticker2 ? `${ticker}/${ticker2}` : ticker);
+    }, [instrumentType, ticker, ticker2]);
 
     const dropdownIntervalsChange = value => {
         setChartInterval({
