@@ -10,7 +10,7 @@ import { Loader } from 'components/common';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [instrumentSymbols, setInstrumentSymbols] = useState({
         forex: [],
         stocks: [],
@@ -18,7 +18,7 @@ function App() {
     });
 
     useEffect(() => {
-        setIsLoading(true);
+        window.addEventListener('load', () => setIsLoading(false));
         async function fetchData() {
             const forex = await fetchSingle(endpoints.forexSymbols);
             const stocks = await fetchSingle(endpoints.stocksSymbols);
@@ -29,7 +29,6 @@ function App() {
                 stocks,
                 crypto,
             });
-            setIsLoading(false);
         }
         fetchData();
     }, []);

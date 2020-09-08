@@ -117,7 +117,7 @@ const MarketList = ({ marketListDropdownElements, marketListFields }) => {
                     <Dropdown dropdownElements={marketListDropdownElements} onChange={changeInstrumentType} />
                 </div>
                 <div className="buttons">
-                    <Button>Filters</Button>
+                    {/* <Button>Filters</Button> */}
                     <Button onClick={paginationPrev} icon className="icon-arrow-left-white" />
                     <Button onClick={paginationNext} icon className="icon-arrow-right-white" />
                 </div>
