@@ -4,7 +4,7 @@ import { Container, Button } from 'components/common';
 import { InstrumentHeader } from './Instrument.style';
 import endpoints, { resolutions } from 'data/endpoints';
 import InstrumentRow from 'components/InstrumentRow';
-import { dateToTimestamp, convertDataFormat } from 'utils';
+import { dateToTimestamp, convertDataFormat, usePrevious } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
 import Chart from 'components/Chart';
@@ -21,6 +21,9 @@ const Instrument = () => {
     const [chartInterval, setChartInterval] = useState(dropdownIntervals.find(item => item.displayValue === 'h1'));
     const [chartTimeFrame, setChartTimeFrame] = useState(dropdownTimeFrames.find(item => item.displayValue === 'month1'));
     const [instrumentDataDay, setInstrumentDataDay] = useState({});
+
+    const prevTicker = usePrevious(ticker);
+    const prevTicker2 = usePrevious(ticker2);
 
     useEffect(() => {
         const date = new Date();

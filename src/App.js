@@ -53,7 +53,7 @@ function App() {
                                     <Route path="/instrument/:instrumentType/:ticker/:ticker2">
                                         <Instrument />
                                     </Route>
-                                    <Route path="">
+                                    <Route>
                                         <h1>404</h1>
                                     </Route>
                                 </Switch>

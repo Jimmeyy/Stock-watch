@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import lodash from 'lodash';
 
 const calculatePriceDayChange = ({ c, o }) => {
@@ -33,4 +34,12 @@ export const convertDataFormat = (ticker, element) => {
         };
         return convertedData;
     }
+};
+
+export const usePrevious = value => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 };
