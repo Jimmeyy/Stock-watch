@@ -79,7 +79,7 @@ const Chart = ({ endpoint, dropdownIntervalsChange, dropdownTimeFramesChange }) 
                     <Dropdown
                         dropdownElements={dropdownIntervals}
                         onChange={dropdownIntervalsChange}
-                        activeElement={dropdownIntervals.find(item => item.displayValue === 'day')}
+                        activeElement={dropdownIntervals.find(item => item.displayValue === 'h1')}
                     />
                     <Dropdown
                         dropdownElements={dropdownTimeFrames}

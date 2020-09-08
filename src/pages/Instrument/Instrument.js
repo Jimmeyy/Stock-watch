@@ -18,7 +18,7 @@ const Instrument = () => {
     const instrumentSymbol = ticker2 ? `${ticker}/${ticker2}` : ticker;
 
     const [chartEndpoint, setChartEndpoint] = useState('');
-    const [chartInterval, setChartInterval] = useState(dropdownIntervals.find(item => item.displayValue === 'day'));
+    const [chartInterval, setChartInterval] = useState(dropdownIntervals.find(item => item.displayValue === 'h1'));
     const [chartTimeFrame, setChartTimeFrame] = useState(dropdownTimeFrames.find(item => item.displayValue === 'month1'));
     const [instrumentDataDay, setInstrumentDataDay] = useState({});
 

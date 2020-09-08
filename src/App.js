@@ -18,7 +18,6 @@ function App() {
     });
 
     useEffect(() => {
-        window.addEventListener('load', () => setIsLoading(false));
         async function fetchData() {
             const forex = await fetchSingle(endpoints.forexSymbols);
             const stocks = await fetchSingle(endpoints.stocksSymbols);
@@ -31,6 +30,7 @@ function App() {
             });
         }
         fetchData();
+        window.addEventListener('load', () => setIsLoading(false));
     }, []);
 
     return (
