@@ -7,7 +7,7 @@ const endpoints = {
         `https://finnhub.io/api/v1/crypto/candle?symbol=${symbol}&resolution=${resolution}&from=${dateFrom}&to=${dateTo}&token=${token}`,
     // STOCKS
     stocksSymbols: `https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${token}`,
-    stocksCandles: (symbol, resolution, dateFrom, dateTo) => 
+    stocksCandles: (symbol, resolution, dateFrom, dateTo) =>
         `https://finnhub.io/api/v1/stock/candle?symbol=${symbol}&resolution=${resolution}&from=${dateFrom}&to=${dateTo}&token=${token}`,
     // FOREX
     forexSymbols: `https://finnhub.io/api/v1/forex/symbol?exchange=oanda&token=${token}`,

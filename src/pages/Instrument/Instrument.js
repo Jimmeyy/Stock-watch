@@ -8,7 +8,6 @@ import { dateToTimestamp, convertDataFormat, usePrevious } from 'utils';
 import { fetchSingle } from 'data/fetch';
 import SymbolsContext from 'data/context/SymbolsContext';
 import Chart from 'components/Chart';
-import Articles from 'components/Articles';
 import { dropdownIntervals, dropdownTimeFrames } from 'data/content/InstrumentPage';
 
 const Instrument = () => {
@@ -81,7 +80,6 @@ const Instrument = () => {
                     dropdownIntervalsChange={dropdownIntervalsChange}
                     dropdownTimeFramesChange={dropdownTimeFramesChange}
                 />
-                <Articles endpoint={endpoints.news(instrumentType)} />
             </Container>
         </div>
     );

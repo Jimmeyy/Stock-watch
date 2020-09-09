@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomePage from 'pages/HomePage';
 import Instrument from 'pages/Instrument';
+import ArticlesPage from 'pages/ArticlesPage';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import SymbolsContext from 'data/context/SymbolsContext';
@@ -53,6 +54,12 @@ function App() {
                                     </Route>
                                     <Route path="/instrument/:instrumentType/:ticker/:ticker2">
                                         <Instrument />
+                                    </Route>
+                                    <Route path="/articles">
+                                        <ArticlesPage />
+                                    </Route>
+                                    <Route path="/articles/:category">
+                                        <ArticlesPage />
                                     </Route>
                                     <Route>
                                         <h1>404</h1>
