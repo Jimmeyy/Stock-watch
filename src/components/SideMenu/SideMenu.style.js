@@ -27,6 +27,16 @@ export const SideMenuMain = styled.div`
     transition: all 0.3s ease;
 
     h3 {
+        margin-bottom: 30px;
+        font-size: 26px;
         color: ${({ theme }) => theme.colors.white};
+    }
+
+    li {
+        margin: 15px 0;
+    }
+
+    a {
+        color: ${({ theme }) => theme.colors.white}
     }
 `;
