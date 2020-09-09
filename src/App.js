@@ -28,9 +28,10 @@ function App() {
                 stocks,
                 crypto,
             });
+
+            setIsLoading(false);
         }
         fetchData();
-        window.addEventListener('load', () => setIsLoading(false));
     }, []);
 
     return (

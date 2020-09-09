@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Container } from 'components/common';
 
 export const HeaderWrapper = styled.div`
+    position: relative;
     padding: 18px 0;
     background-color: #232323;
 `;
@@ -22,6 +23,17 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderMenu = styled.div`
+    position: relative;
+    z-index: 1000;
+
+    ${({ isOpen }) =>
+        isOpen &&
+        css`
+            position: fixed;
+            top: 25px;
+            right: 30px;
+        `};
+
     .menu {
         position: relative;
         width: 22px;

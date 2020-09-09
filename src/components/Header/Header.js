@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HeaderWrapper, HeaderLogo, HeaderMenu, HeaderContainer } from './Header.style';
 import { Link } from 'react-router-dom';
+import SideMenu from 'components/SideMenu';
 
 function Header() {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -15,7 +16,7 @@ function Header() {
                 <HeaderLogo>
                     <Link to="/">Stock-Watch</Link>
                 </HeaderLogo>
-                <HeaderMenu>
+                <HeaderMenu isOpen={menuIsOpen}>
                     <div className={`menu ${menuIsOpen && 'is-open'}`} onClick={handleMenuClick}>
                         <span className="line-top"></span>
                         <span className="line-middle"></span>
@@ -23,6 +24,7 @@ function Header() {
                     </div>
                 </HeaderMenu>
             </HeaderContainer>
+            <SideMenu isOpen={menuIsOpen} />
         </HeaderWrapper>
     );
 }
