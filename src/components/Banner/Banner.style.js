@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const BannerWrapper = styled.div`
+    margin-bottom: 50px;
     background-color: #4a4a4a;
     padding: 100px 0;
 `;
