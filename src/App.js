@@ -55,10 +55,10 @@ function App() {
                                     <Route path="/instrument/:instrumentType/:ticker/:ticker2">
                                         <Instrument />
                                     </Route>
-                                    <Route path="/articles">
+                                    <Route path="/articles/:category">
                                         <ArticlesPage />
                                     </Route>
-                                    <Route path="/articles/:category">
+                                    <Route path="/articles">
                                         <ArticlesPage />
                                     </Route>
                                     <Route>
