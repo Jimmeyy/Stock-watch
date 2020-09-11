@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ArticleWrapper } from './ArticleBox.style';
+import moment from 'moment';
 
 const ArticleBox = ({ article }) => {
     const { datetime, headline, image, summary, url } = article;
     return (
         <ArticleWrapper>
-            <p>{datetime}</p>
+            <p>{moment(datetime)}</p>
             <h2>{headline}</h2>
             <div className="image-warpper">
                 <img src={image} alt="news-image" />

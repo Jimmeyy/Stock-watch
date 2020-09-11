@@ -24,7 +24,7 @@ function Header() {
                     </div>
                 </HeaderMenu>
             </HeaderContainer>
-            <SideMenu isOpen={menuIsOpen} closeMenu={handleMenuClick} />
+            {menuIsOpen && <SideMenu isOpen={menuIsOpen} closeMenu={handleMenuClick} />}
         </HeaderWrapper>
     );
 }
