@@ -7,13 +7,15 @@ const ArticleBox = ({ article }) => {
     const { datetime, headline, image, summary, url } = article;
     return (
         <ArticleWrapper>
-            <p>{moment(datetime)}</p>
-            <h2>{headline}</h2>
             <div className="image-warpper">
                 <img src={image} alt="news-image" />
             </div>
-            <p>{summary}</p>
-            <a href={url}>Read more</a>
+            <div className="content">
+                <p className="date">{moment.unix(datetime).format('MM.DD.YYYY')}</p>
+                <h2>{headline}</h2>
+                <p>{summary}</p>
+                <a href={url}>Read more</a>
+            </div>
         </ArticleWrapper>
     );
 };
